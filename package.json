@@ -1,8 +1,10 @@
 {
   "name": "discord-vote-bot",
   "description": "Discord Vote Bot for my personal Discord server",
+  "main": "bot.js",
   "dependencies": {
     "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
     "eslint": "^6.6.0"
   }
 }
