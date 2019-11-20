@@ -9,7 +9,6 @@ let lastHeliTime
 let lastCargoTime
 let lastBradleyTime
 
-
 client.once('ready', () => {
 	console.log('Ready!');
 });
