@@ -16,7 +16,6 @@
         "array-element-newline": ["error", "never"],
         "block-spacing": "error",
         "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
-        "capitalized-comments": ["error", "always"],
         "comma-dangle": ["error", "always-multiline"],
         "comma-spacing": ["error", { "before": false, "after": true }],
         "comma-style": ["error", "last"],
