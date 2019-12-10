@@ -20,17 +20,14 @@ client.on('message', message => {
 	const timeNow = new Date().toLocaleTimeString('en-US');
 
 	if (!message.content.startsWith(commandPrefix) || message.author.bot) return;
-
 	// Commands
 	else if (command === 'setheli') {
 		lastHeliTime = timeNow;
 		message.channel.send(`The heli spawn time has been set to: ${lastHeliTime}. To check this time later, type the question ?heli.`);
-	}
-	else if (command === 'setcargo') {
+	} else if (command === 'setcargo') {
 		lastCargoTime = timeNow;
 		message.channel.send(`The cargo spawn time has been set to: ${lastCargoTime}. To check this time later, type the question ?cargo.`);
-	}
-	else if (command === 'setbradley') {
+	} else if (command === 'setbradley') {
 		lastBradleyTime = timeNow;
 		message.channel.send(`The bradley spawn time has been set to: ${lastBradleyTime}. To check this time later, type the question ?bradley.`);
 	}
@@ -38,11 +35,9 @@ client.on('message', message => {
 	// Questions
 	else if (command === 'heli') {
 		message.channel.send(`The heli was last up at ${lastHeliTime}.`);
-	}
-	else if (command === 'cargo') {
+	} else if (command === 'cargo') {
 		message.channel.send(`The heli was last up at ${lastCargoTime}.`);
-	}
-	else if (command === 'bradley') {
+	} else if (command === 'bradley') {
 		message.channel.send(`The heli was last up at ${lastBradleyTime}.`);
 	}
 });
