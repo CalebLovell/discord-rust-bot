@@ -85,5 +85,3 @@ const scrapeItem = async url => {
 // TODO: Scrape nicknames for guns from the Wikia and let users find items by them
 
 scrapeItem(`https://rustlabs.com/item/bolt-action-rifle`);
-
-console.log(`test addition to see if Discord WebHook is working, delete this line later...`)
