@@ -8,7 +8,8 @@
         "ecmaVersion": 11,
         "ecmaFeatures": {
             "jsx": true
-        }
+        },
+        "sourceType": "module"
     },
     "rules": {
         "array-bracket-newline": ["error", "never"],
@@ -48,7 +49,7 @@
         "prefer-const": "error",
         "prefer-spread": "error",
         "prefer-template": "error",
-        "quotes": ["error", "single"],
+        "quotes": ["error", "backtick"],
         "semi": ["error", "always"],
         "semi-spacing": "error",
         "semi-style": ["error", "last"],
