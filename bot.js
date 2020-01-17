@@ -53,7 +53,7 @@ client.on(`message`, async message => {
 	else if (rustItemArray.includes(command)) {
 		const urlFormattedItem = command.split(/\s+/).join(`-`);
 		const itemInfoObj = await scrapeItem(`https://rustlabs.com/item/${urlFormattedItem}`);
-		message.channel.send(`${itemInfoObj.researchCost} ${itemInfoObj.craftCost}`);
+		message.channel.send(`\`\`\`prolog\n${itemInfoObj.researchCost}\n${itemInfoObj.craftCost}\`\`\``);
 	}
 });
 

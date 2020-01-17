@@ -27,7 +27,7 @@ const scrapeItem = async url => {
 		const researchCostNumberText = await researchCostNumber.jsonValue();
 		const researchCostNumberTextFixed = researchCostNumberText.substr(1);
 		// Set the final string
-		const researchString = `${plural ? `` : `A `}${itemNameAltText} ${costOrCosts} ${researchCostNumberTextFixed} Scrap to Research.`;
+		const researchString = `${itemNameAltText} ${costOrCosts} ${researchCostNumberTextFixed} Scrap to research.`;
 		itemInfoObj.researchCost = researchString;
 	} catch (err) {
 		itemInfoObj.researchCost = `This item cannot be researched.`;
@@ -35,7 +35,7 @@ const scrapeItem = async url => {
 
 	/* ---------- Craft Cost ---------- */
 	try {
-		let costString = `${plural ? `` : `A `}${itemNameAltText} ${costOrCosts} `;
+		let costString = `${itemNameAltText} ${costOrCosts} `;
 		const [ingredients] = await page.$x(`//*[@id="left-column"]/div[2]/div[2]/table/tbody/tr[1]/td[3]`);
 		// const [ingredients] = await page.$x(`/html/body/div[1]/div[1]/div[2]/div[3]/table/tbody/tr/td[3]`);
 
