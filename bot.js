@@ -31,22 +31,22 @@ client.on(`message`, async message => {
 	// Commands
 	else if (command === `setheli`) {
 		lastHeliTime = timeNow;
-		message.channel.send(`The heli spawn time has been set to: ${lastHeliTime}. To check this time later, type the question ?heli.`);
+		message.channel.send(`\`\`\`prolog\nthe heli spawn time has been set to: ${lastHeliTime}, to check this time later, type '!heli'\`\`\``);
 	} else if (command === `setcargo`) {
 		lastCargoTime = timeNow;
-		message.channel.send(`The cargo spawn time has been set to: ${lastCargoTime}. To check this time later, type the question ?cargo.`);
+		message.channel.send(`\`\`\`prolog\nthe cargo spawn time has been set to: ${lastCargoTime}, to check this time later, type '!cargo'\`\`\``);
 	} else if (command === `setbradley`) {
 		lastBradleyTime = timeNow;
-		message.channel.send(`The bradley spawn time has been set to: ${lastBradleyTime}. To check this time later, type the question ?bradley.`);
+		message.channel.send(`\`\`\`prolog\nthe bradley spawn time has been set to: ${lastBradleyTime}, to check this time later, type '!bradley'\`\`\``);
 	}
 
 	// Questions
 	else if (command === `heli`) {
-		message.channel.send(`The heli was last up at ${lastHeliTime}.`);
+		message.channel.send(`\`\`\`prolog\nthe heli was last up at ${lastHeliTime}.\`\`\``);
 	} else if (command === `cargo`) {
-		message.channel.send(`The heli was last up at ${lastCargoTime}.`);
+		message.channel.send(`\`\`\`prolog\nthe heli was last up at ${lastCargoTime}.\`\`\``);
 	} else if (command === `bradley`) {
-		message.channel.send(`The heli was last up at ${lastBradleyTime}.`);
+		message.channel.send(`\`\`\`prolog\nthe heli was last up at ${lastBradleyTime}.\`\`\``);
 	}
 
 	// Find Item Info
