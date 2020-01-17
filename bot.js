@@ -1,21 +1,29 @@
 require(`dotenv`).config();
-import { Client } from 'discord.js';
-const client = new Client();
+const Discord = require(`discord.js`);
+const client = new Discord.Client();
 const TOKEN = process.env.TOKEN;
+
+const scrapeItem = require(`./itemScraper.js`);
+const getAllRustItems = require(`./rustItems.js`);
 
 const commandPrefix = `!`;
 
 let lastHeliTime;
 let lastCargoTime;
 let lastBradleyTime;
+let rustItemArray;
 
-client.once(`ready`, () => {
+client.once(`ready`, async () => {
+	rustItemArray = await getAllRustItems();
 	console.log(`Mr. Naked is at your command.`);
 });
 
-client.on(`message`, message => {
-	const commandArgs = message.content.slice(commandPrefix.length).split(/ +/);
-	const command = commandArgs.shift().toLowerCase();
+client.on(`message`, async message => {
+	// const commandArgs = message.content.slice(commandPrefix.length).split(/ +/);
+	// const command = commandArgs.shift().toLowerCase();
+	const command = message.content.substring(1).toLowerCase();
+
+	// TODO: fix above mess ^
 
 	const timeNow = new Date().toLocaleTimeString(`en-US`);
 
@@ -30,7 +38,6 @@ client.on(`message`, message => {
 	} else if (command === `setbradley`) {
 		lastBradleyTime = timeNow;
 		message.channel.send(`The bradley spawn time has been set to: ${lastBradleyTime}. To check this time later, type the question ?bradley.`);
-		// eslint-disable-next-line brace-style
 	}
 
 	// Questions
@@ -40,6 +47,13 @@ client.on(`message`, message => {
 		message.channel.send(`The heli was last up at ${lastCargoTime}.`);
 	} else if (command === `bradley`) {
 		message.channel.send(`The heli was last up at ${lastBradleyTime}.`);
+	}
+
+	// Find Item Info
+	else if (rustItemArray.includes(command)) {
+		const urlFormattedItem = command.split(/\s+/).join(`-`);
+		const itemInfoObj = await scrapeItem(`https://rustlabs.com/item/${urlFormattedItem}`);
+		message.channel.send(`${itemInfoObj.researchCost} ${itemInfoObj.craftCost}`);
 	}
 });
 

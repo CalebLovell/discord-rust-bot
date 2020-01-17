@@ -1,12 +1,17 @@
-const puppeteer = require(`puppeteer`);
-
 const scrapeItem = async url => {
 	// Launch browser and navigate to a new page at the given url
+	const puppeteer = require(`puppeteer`);
 	const browser = await puppeteer.launch();
 	const page = await browser.newPage();
 	await page.goto(url);
 
-	// ---------- Item Name -----------
+	// Info Object to Return
+	const itemInfoObj = {
+		researchCost: ``,
+		craftCost: ``,
+	};
+
+	/* ---------- Item Name ----------- */
 	// Grab the name of the item by an xpath, then get its alt property and json value
 	const [itemName] = await page.$x(`//*[@id="left-column"]/div[1]/div[2]/img`);
 	const itemNameAlt = await itemName.getProperty(`alt`);
@@ -14,7 +19,7 @@ const scrapeItem = async url => {
 	const plural = itemNameAltText.charAt(itemNameAltText.length - 1) === `s` ? true : false;
 	const costOrCosts = plural ? `cost` : `costs`;
 
-	// -------- Research Cost ---------
+	/* -------- Research Cost --------- */
 	try {
 		// Grab the research cost of the item by its xpath, then get its inner text and json value (minus the 'x' char)
 		const [researchCost] = await page.$x(`//*[@id="left-column"]/div[2]/div[4]/table/tbody/tr/td[3]/a/span`);
@@ -23,13 +28,12 @@ const scrapeItem = async url => {
 		const researchCostNumberTextFixed = researchCostNumberText.substr(1);
 		// Set the final string
 		const researchString = `${plural ? `` : `A `}${itemNameAltText} ${costOrCosts} ${researchCostNumberTextFixed} Scrap to Research.`;
-		console.log(researchString);
+		itemInfoObj.researchCost = researchString;
 	} catch (err) {
-		console.log(`This item cannot be researched.`);
-		// console.log(err);
+		itemInfoObj.researchCost = `This item cannot be researched.`;
 	}
 
-	// ---------- Craft Cost ----------
+	/* ---------- Craft Cost ---------- */
 	try {
 		let costString = `${plural ? `` : `A `}${itemNameAltText} ${costOrCosts} `;
 		const [ingredients] = await page.$x(`//*[@id="left-column"]/div[2]/div[2]/table/tbody/tr[1]/td[3]`);
@@ -67,15 +71,16 @@ const scrapeItem = async url => {
 		} catch {
 			costString += `without the need for a Work Bench.`;
 		}
-		console.log(costString);
+		itemInfoObj.craftCost = costString;
 	} catch (err) {
-		console.log(`This item cannot be crafted.`);
-		// console.log(err);
+		itemInfoObj.craftCost = `This item cannot be crafted.`;
 	}
 
 	browser.close();
+	return itemInfoObj;
 };
 
+module.exports = scrapeItem;
 // TODO: Check if an item has a given tab before running code
 // TOOD: Recycling
 // TODO: Run basic and exact xpath to account for items that use either
@@ -83,5 +88,3 @@ const scrapeItem = async url => {
 // TODO: Put info in a database?
 // TODO: Make this function run dynamically in the bot
 // TODO: Scrape nicknames for guns from the Wikia and let users find items by them
-
-scrapeItem(`https://rustlabs.com/item/bolt-action-rifle`);
